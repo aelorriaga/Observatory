@@ -2,6 +2,10 @@
 # OBSERVATORIO DE LAS METAS DEL MILENIO
 # @aelorriaga, Septiembre 2016
 # CAPTURA DE DATOS PARA ANALIZAR EL CUMPLIMIENTO DE LAS METAS DEL MILENIO
+#****************************************************************************
+# Este prototipo implementa el comportamiento del Objetivo 1, obteniendo datos de ficheros CSV
+# extraidos del World Data Bank, y de la coleccion de documentos JSON almacenados en una instancia
+# de MongoDB de mlab.com
 #
 
 library(shiny)
@@ -344,10 +348,10 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview1 <- renderUI(tags$div(`class`="progress",
                                         tags$div(`class`="progress-bar",
                                                  `role`="progressbar",
-                                                 `aria-valuenow`="70",
+                                                 `aria-valuenow`="20",
                                                  `aria-valuemin`="0",
                                                  `aria-valuemax`="100",
-                                                 `style`="width:70%",
+                                                 `style`="width:20%",
                                                  "20%"
                                                 )
                                         )
@@ -356,7 +360,7 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview2 <- renderUI(tags$div(`class`="progress",
                                           tags$div(`class`="progress-bar",
                                                    `role`="progressbar",
-                                                   `aria-valuenow`="70",
+                                                   `aria-valuenow`="30",
                                                    `aria-valuemin`="0",
                                                    `aria-valuemax`="100",
                                                    `style`="width:30%",
@@ -368,10 +372,10 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview3 <- renderUI(tags$div(`class`="progress",
                                           tags$div(`class`="progress-bar",
                                                    `role`="progressbar",
-                                                   `aria-valuenow`="70",
+                                                   `aria-valuenow`="60",
                                                    `aria-valuemin`="0",
                                                    `aria-valuemax`="100",
-                                                   `style`="width:30%",
+                                                   `style`="width:60%",
                                                    "60%"
                                                   )
                                           )
@@ -380,10 +384,10 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview4 <- renderUI(tags$div(`class`="progress",
                                           tags$div(`class`="progress-bar",
                                                    `role`="progressbar",
-                                                   `aria-valuenow`="70",
+                                                   `aria-valuenow`="40",
                                                    `aria-valuemin`="0",
                                                    `aria-valuemax`="100",
-                                                   `style`="width:30%",
+                                                   `style`="width:40%",
                                                    "40%"
                                                   )
                                           )
@@ -392,7 +396,7 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview5 <- renderUI(tags$div(`class`="progress",
                                           tags$div(`class`="progress-bar",
                                                    `role`="progressbar",
-                                                   `aria-valuenow`="70",
+                                                   `aria-valuenow`="30",
                                                    `aria-valuemin`="0",
                                                    `aria-valuemax`="100",
                                                    `style`="width:30%",
@@ -404,10 +408,10 @@ server <- shinyServer(function(input, output, session) {
   output$uiOverview6 <- renderUI(tags$div(`class`="progress",
                                           tags$div(`class`="progress-bar",
                                                    `role`="progressbar",
-                                                   `aria-valuenow`="70",
+                                                   `aria-valuenow`="10",
                                                    `aria-valuemin`="0",
                                                    `aria-valuemax`="100",
-                                                   `style`="width:30%",
+                                                   `style`="width:10%",
                                                    "10%"
                                           )
   )
@@ -485,11 +489,11 @@ server <- shinyServer(function(input, output, session) {
                                      tags$li (class="list-group-item",
                                               tags$span(class="badge",
                                                         2),
-                                              "measurability"),
+                                              "Measurability"),
                                      tags$li (class="list-group-item",
                                               tags$span(class="badge",
                                                         2),
-                                              "observability")
+                                              "Observability")
                                      )
                           )
   
@@ -549,7 +553,7 @@ server <- shinyServer(function(input, output, session) {
                                                                    
                                                                    tags$span(`class`="label label-success", "clarity"),
                                                                    tags$span(`class`="label label-success", "measurability"),
-                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   tags$span(`class`="label label-success", "observability"),
                                                                    
                                                                   
                                                                    
@@ -582,8 +586,18 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingTwo",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions. This includes: Proportion of population living below the national poverty line by sex and age, and Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions"
-                                                         )
+                                                                   "By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions. This includes: Proportion of population living below the national poverty line by sex and age, and Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
+                                                                    
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                   
+                                                                   
+                                                                   plotOutput("plot2", height ="300")
+                                                                   
+                                                                   
+                                                                   )
                                                )
                                      ),
                                      
@@ -611,8 +625,17 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingThree",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable"               
-                                                         )
+                                                                   "Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable",               
+                                                         
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                   
+                                                                   
+                                                                   plotOutput("plot3", height ="300")
+                                                                   
+                                                                   )
                                                )
                                      ),
                                      
@@ -641,8 +664,15 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingFour",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance"
-                                                         )
+                                                                   "By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance",
+                                                         
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                   plotOutput("plot4", height ="300")
+                                                                   
+                                                                   )
                                                )
                                      ),
                                      
@@ -670,8 +700,15 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingFive",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters"
-                                                         )
+                                                                   "By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters",
+                                                         
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                   plotOutput("plot5", height ="300")
+                                                                   
+                                                                   )
                                                )
                                      ),
                                      
@@ -699,8 +736,15 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingSix",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to prov`id`e adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions"
-                                                         )
+                                                                   "Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to prov`id`e adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+                                                         
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                  plotOutput("plot6", height ="300")
+                                                                   
+                                                                   )
                                                )
                                      ),
                                      
@@ -728,14 +772,22 @@ server <- shinyServer(function(input, output, session) {
                                                          `aria-labelledby`="headingSeven",
                                                          
                                                          tags$div(	`class`="panel-body",
-                                                                   "Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions"
-                                                         )
+                                                                   "Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
+                                                         
+                                                                   tags$span(`class`="label label-warning", "clarity"),
+                                                                   tags$span(`class`="label label-warning", "measurability"),
+                                                                   tags$span(`class`="label label-warning", "observability"),
+                                                                   
+                                                                   
+                                                                   plotOutput("plot7", height ="300")
+                                                                   
+                                                                   )
                                                )
                                      )
                             )
                            )
   
-  # GRAFICO DEL OBJETIVO: Se renderiza aplicando el principio de REACTIVIDAD 
+  # GRAFICO DEL OBJETIVO1.1: Se renderiza aplicando el principio de REACTIVIDAD 
   output$plot <- renderPlot({
     
     data <- read.csv("Poverty1_cols.csv", header = TRUE)
@@ -745,7 +797,16 @@ server <- shinyServer(function(input, output, session) {
     
   })
   
+  # GRAFICO DEL OBJETIVO1.2: Se renderiza aplicando el principio de REACTIVIDAD 
+  output$plot2 <- renderPlot({
     
+    data2 <- read.csv("Poverty2_cols.csv", header = TRUE)
+    
+    plot (data2$Value, xlab = "Year", ylab = "%population living under 1.90$", ylim = c(0,100), type="o", col="blue")
+    axis(1, 1:7, data2$Year)
+    
+
+  })
 
   #************** Rendering Goal 2**************************************
   objTitle2 <- db$distinct("Title", '{"_id":{"$eq":2}}')
