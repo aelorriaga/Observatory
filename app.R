@@ -329,10 +329,10 @@ server <- shinyServer(function(input, output, session) {
   
   # ************************ Configuracion OAUTH Twitter + MySQL ********************************
   
-  consumer_key <- "qleCiEBxm6G1mBQehizPgNA8k"
-  consumer_secret <- "dtMudhAeqmNvsGYK7h5UvZta3d7SIOkMEtp7vynS7d67SZjG1S"
-  access_token <- "14907367-EKVubckaNH3zOVfuY3zd1De5kUbXg42gjG8hJMloI"
-  access_token_secret <- "I1LzzwqOqQm55qwnrW1d6JBr63hdaiu5W5zpz7dOf3vG2"
+  consumer_key <- "#####################################"
+  consumer_secret <- "#####################################"
+  access_token <- "#####################################"
+  access_token_secret <- "#####################################"
   
   setup_twitter_oauth(consumer_key,consumer_secret,access_token,access_token_secret)
   
