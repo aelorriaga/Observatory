@@ -1,0 +1,9 @@
+name: Observatorio
+account: aelorriaga
+server: shinyapps.io
+appId: 134459
+bundleId: 599500
+url: https://aelorriaga.shinyapps.io/Observatorio/
+when: 1477672201.40782
+asMultiple: FALSE
+asStatic: FALSE
